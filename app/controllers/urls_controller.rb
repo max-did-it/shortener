@@ -1,5 +1,5 @@
 class UrlsController < ApplicationController
-  def create    
+  def create
     service = Urls::Creator.new
     service.url = create_params[:url]
     service.base_url = request.base_url
@@ -12,9 +12,10 @@ class UrlsController < ApplicationController
   def show
     service = Urls::Fetcher.new
     service.slug = params[:slug]
+    return render json: service.errors.to_h, status: 400 unless service.valid?
 
     result = service.call
-    if result 
+    if result
       render json: { url: result }
     else
       render :not_found
@@ -24,8 +25,9 @@ class UrlsController < ApplicationController
   def stats
     service = Urls::Stats.new
     service.slug = params[:url_slug]
-    result = service.call
+    return render json: service.errors.to_h, status: 400 unless service.valid?
 
+    result = service.call
     if result
       render json: { stats: result }
     else

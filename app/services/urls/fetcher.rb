@@ -11,7 +11,7 @@ class Urls::Fetcher
     url
   end
 
-  private 
+  private
 
   def url
     return @url if defined? @url
@@ -24,7 +24,7 @@ class Urls::Fetcher
   end
 
   def url_presence
-    !!url
+    errors.add :url, 'not found' unless url
   end
 
   def redis_conn

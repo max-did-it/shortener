@@ -5,7 +5,7 @@ class Urls::Stats
 
   validate :url_presence
   attr_accessor :slug
-  
+
   def call
     fetch_stats
   end
@@ -19,11 +19,11 @@ class Urls::Stats
   def url
     return @url if defined? @url
 
-    @url ||= redis_conn.set("#{slug}:url", url)
+    @url ||= redis_conn.get("#{slug}:url")
   end
 
   def url_presence
-    !!url
+    errors.add :url, 'not found' unless url
   end
 
   def redis_conn

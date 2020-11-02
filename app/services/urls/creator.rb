@@ -6,8 +6,9 @@ class Urls::Creator
   attr_accessor :url, :slug, :base_url
 
   def call
-    return redis_conn.get(url) if 
+    return redis_conn.get(url) if
     store
+
     URI(base_url) + "/urls/#{slug}"
   end
 
