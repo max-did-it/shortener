@@ -2,7 +2,7 @@ class Urls::Creator
   REDIS_URL = ENV.fetch('REDIS_URL', 'redis://127.0.0.1:6379/1').freeze
   include ActiveModel
   include ActiveModel::Validations
-
+  validates :url, presence: true
   attr_accessor :url, :slug, :base_url
 
   def call
