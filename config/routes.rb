@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :urls, only: %i[create show], param: :slug do
+    get '/stats', to: 'urls#stats'
+  end
 end
